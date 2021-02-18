@@ -10,7 +10,6 @@ commit;
 rollback;
 
 --////////////////////////////////
-
 --users
 
 create table users(
@@ -30,6 +29,10 @@ nocache;
 SELECT
     *
 FROM users;
+
+--입력 userNo id userName password joinDate
+insert into users
+values(seq_users_no.nextval, '아이디', '이름', '비번', sysdate);
 
 --------------------------------
 --blog 

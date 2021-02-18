@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,7 @@
 	<div id="center-content">
 		
 		<!-- 메인 해더 -->
-	
+		<c:import url="/WEB-INF/views/includes/main-header.jsp"></c:import>
 
 		<div>		
 			<form id="joinForm" method="post" action="${pageContext.request.contextPath}/user/join">
@@ -29,7 +30,7 @@
 		      			<td><button id="btnIdCheck" type="button">아이디체크</button></td>
 		      		</tr>
 		      		<tr>
-		      			<td></td>
+		      			<td></td> <!-- 아이디중복체크 문구 / 다른 아이디로 가입해주세요 -->
 		      			<td id="tdMsg" colspan="2">사용할 수 있는 아이디 입니다.</td>
 		      		</tr> 
 		      		<tr>

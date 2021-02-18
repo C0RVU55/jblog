@@ -4,6 +4,17 @@
 
 <mapper namespace="user">
 	
+	<!-- 회원 등록 -->
+	<insert id="insert" parameterType="UserVo">
+		<![CDATA[
+			insert into users
+			values(seq_users_no.nextval, 
+					#{id}, 
+					#{userName}, 
+					#{password}, 
+					sysdate)
+		]]>
+	</insert>
 
 	
 
