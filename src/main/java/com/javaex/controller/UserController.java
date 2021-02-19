@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,4 +43,35 @@ public class UserController {
 		
 		return "user/joinSuccess";
 	}
+	
+	//로그인
+	@RequestMapping(value="/login", method= {RequestMethod.GET, RequestMethod.POST})
+	public String login(@ModelAttribute UserVo uVo, HttpSession session) {
+		System.out.println("[userController.login()] --> "+uVo);
+		
+		UserVo authUser = userService.login(uVo);
+
+		//로그인 실패
+		if(authUser == null) {
+			return "redirect:/user/loginForm?result=0";
+		} 
+		
+		//로그인 성공
+		session.setAttribute("authUser", authUser);
+		
+		return "main/index";
+	}
+	
+	//로그아웃
+	@RequestMapping(value="/logout", method= {RequestMethod.GET, RequestMethod.POST})
+	public String logout(HttpSession session) {
+		System.out.println("[userController.logout()]");
+		
+		session.removeAttribute("authUser");
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	
 }

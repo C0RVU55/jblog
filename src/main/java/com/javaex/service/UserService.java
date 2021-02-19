@@ -18,4 +18,11 @@ public class UserService {
 		
 		uDao.insert(uVo);
 	}
+	
+	//로그인
+	public UserVo login(UserVo uVo) {
+		System.out.println("[UserService.login()] --> "+uVo);
+		
+		return uDao.selectUser(uVo);
+	}
 }

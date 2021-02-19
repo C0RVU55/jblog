@@ -16,6 +16,17 @@
 		]]>
 	</insert>
 
+	<!-- 로그인 -->
+	<select id="selectUser" parameterType="UserVo" resultType="UserVo">
+		<![CDATA[
+			SELECT  id,
+					userNo,
+			        userName
+			FROM users
+			where id=#{id}
+			and password=#{password}
+		]]>
+	</select>
 	
 
 

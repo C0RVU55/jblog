@@ -19,5 +19,11 @@ public class UserDao {
 		sqlSession.insert("user.insert", uVo);
 	}
 	
+	//로그인 및 세션 정보 가져오기
+	public UserVo selectUser(UserVo uVo) {
+		System.out.println("[UserDao.selectOne()] --> "+uVo);
+		
+		return sqlSession.selectOne("user.selectUser", uVo);
+	}
 	
 }

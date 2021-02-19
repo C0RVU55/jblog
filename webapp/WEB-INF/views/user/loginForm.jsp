@@ -35,7 +35,9 @@
 		      		</tr> 
 		      		<tr>
 		      			<td colspan="2" id="tdMsg" colspan="2">
-		      				<span>아이디 또는 비번을 확인해 주세요.</span>
+		      				<c:if test="${param.result == 0}">
+		      					<span>아이디 또는 비번을 확인해 주세요.</span>
+		      				</c:if>
 		      			</td>
 		      		</tr> 
 		      	</table>
