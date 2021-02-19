@@ -10,9 +10,21 @@
 			insert into blog
 			values(	#{id}, 
 					#{blogTitle}||'의 블로그입니다.', 
-					'jblog/assets/images/spring-logo.jpg')
+					'assets/images/spring-logo.jpg')
 		]]>
 	</insert>
 
+	<!-- 블로그 정보 가져오기 -->
+	<select id="selectBlog" parameterType="String" resultType="BlogVo">
+	<![CDATA[
+		SELECT  u.id,
+		        u.userName,
+		        b.blogTitle,
+		        b.logoFile
+		FROM blog b, users u
+		where b.id = u.id
+		and u.id=#{id}
+	]]>
+	</select>
 
 </mapper>

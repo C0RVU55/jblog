@@ -18,5 +18,12 @@ public class BlogDao {
 		
 		sqlSession.insert("blog.blogInsert", blogVo);
 	}
+	
+	//블로그 정보 가져오기
+	public BlogVo selectBlog(String id) {
+		System.out.println("[BlogDao.insert()] --> "+id);
+		
+		return sqlSession.selectOne("blog.selectBlog", id);
+	}
 
 }
