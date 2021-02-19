@@ -6,10 +6,11 @@
 	
 	<typeAliases>
 		<typeAlias alias="UserVo" type="com.javaex.vo.UserVo" />
+		<typeAlias alias="BlogVo" type="com.javaex.vo.BlogVo" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" /> <!-- 여기에 쿼리문xml 경로 추가 -->
-		
+		<mapper resource="mybatis/mappers/blog.xml" />
 	</mappers>
 </configuration>

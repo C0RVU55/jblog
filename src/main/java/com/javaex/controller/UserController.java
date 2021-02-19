@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.javaex.service.BlogService;
 import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
 
@@ -17,6 +18,7 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	private BlogService blogService;
 	
 	//로그인폼
 	@RequestMapping(value="/loginForm", method= {RequestMethod.GET, RequestMethod.POST})
@@ -39,7 +41,7 @@ public class UserController {
 	public String join(@ModelAttribute UserVo uVo) {
 		System.out.println("[userController.join()] --> "+uVo);
 		
-		userService.join(uVo);
+		userService.join(uVo); 
 		
 		return "user/joinSuccess";
 	}

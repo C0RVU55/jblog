@@ -13,10 +13,10 @@ public class UserDao {
 	private SqlSession sqlSession;
 	
 	//회원 등록
-	public void insert(UserVo uVo) {
+	public int userInsert(UserVo uVo) {
 		System.out.println("[UserDao.insert()] --> "+uVo);
 		
-		sqlSession.insert("user.insert", uVo);
+		return sqlSession.insert("user.userInsert", uVo);
 	}
 	
 	//로그인 및 세션 정보 가져오기

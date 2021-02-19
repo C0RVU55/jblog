@@ -3,7 +3,7 @@ CREATE USER jblog IDENTIFIED BY jblog;
 grant resource, connect to jblog;
 
 --drop
-drop table comments;
+drop table blog;
 drop SEQUENCE seq_users_no;
 
 commit;
@@ -30,9 +30,21 @@ SELECT
     *
 FROM users;
 
+--삭제
+delete from users
+where userNo = 14;
+
 --입력 userNo id userName password joinDate
 insert into users
 values(seq_users_no.nextval, '아이디', '이름', '비번', sysdate);
+
+--로그인
+SELECT  id,
+        userNo,
+        userName
+FROM users
+where id='aaa'
+and password='111';
 
 --------------------------------
 --blog 
@@ -46,9 +58,21 @@ create table blog(
     REFERENCES users(id)
 );
 
-SELECT
-    *
+SELECT  id,
+        blogTitle,
+        logoFile
 FROM blog;
+
+SELECT  u.id,
+        u.userName,
+        b.blogTitle,
+        b.logoFile
+FROM blog b, users u
+where b.id = u.id;
+
+--입력 id blogTitle logoFile
+insert into blog
+values('bbb', '블로그명', 'jblog/assets/images/spring-logo.jpg');
 
 --------------------------------
 --category
