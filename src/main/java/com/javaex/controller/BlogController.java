@@ -16,6 +16,12 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
+	/*
+	1.로그인 다이어그램
+	2.내블로그 관리	베이직, 카테고리, 글작성
+	*/
+	
+	//블로그 메인
 	@RequestMapping(value= "{id}", method= {RequestMethod.GET, RequestMethod.POST}) //{패스변수}
 	public String blogMain(@PathVariable("id") String id, Model model) {
 		System.out.println("[BlogController.blogMain()]");
@@ -27,4 +33,7 @@ public class BlogController {
 		
 		return "blog/blog-main";
 	}
+	
+	//내블로그 관리
+	
 }

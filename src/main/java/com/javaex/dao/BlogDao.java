@@ -12,7 +12,7 @@ public class BlogDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	//블로그 생성
+	//블로그 생성 (파라미터 UserService에서 받음)
 	public void blogInsert(BlogVo blogVo) {
 		System.out.println("[BlogDao.insert()] --> "+blogVo);
 		

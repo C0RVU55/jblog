@@ -68,11 +68,17 @@ SELECT  u.id,
         b.blogTitle,
         b.logoFile
 FROM blog b, users u
-where b.id = u.id;
+where b.id = u.id
+and u.id='qqq';
 
 --입력 id blogTitle logoFile
 insert into blog
 values('bbb', '블로그명', 'jblog/assets/images/spring-logo.jpg');
+
+--logoFile 수정
+update blog
+set logoFile='assets/images/spring-logo.jpg'
+where id = 'www';
 
 --------------------------------
 --category
