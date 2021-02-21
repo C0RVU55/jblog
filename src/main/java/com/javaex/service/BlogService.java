@@ -39,23 +39,19 @@ public class BlogService {
 			/////DB에 저장할 파일정보 수집/////
 			
 			//서버 파일패스(경로)
-			String saveDir = "C:\\javaStudy\\강의자료\\99.미니프로젝트_jblog\\jblog_디자인\\assets\\images";
+			String saveDir = "C:\\javaStudy\\workspace_web\\jblog\\webapp\\assets\\images";
 			
 			//오리지널 파일명
 			String orgName = file.getOriginalFilename();
-			System.out.println("orgName: "+orgName);
 			
 			//확장자명
 			String exName = orgName.substring(orgName.lastIndexOf("."));
-			System.out.println("exName --> "+exName);
 			
 			//서버 저장파일명 + 확장자명 --> logoFile에 해당
 			String logoFile = System.currentTimeMillis()+UUID.randomUUID().toString() + exName;
-			System.out.println("logoFile --> "+logoFile);
 			
 			//서버 저장경로+파일명
 			String filePath = saveDir + "\\" + logoFile;
-			System.out.println("filePath --> "+filePath);
 			
 			//파일 사이즈(필요X)
 			/*

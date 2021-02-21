@@ -64,11 +64,9 @@ public class BlogController {
 		System.out.println("[BlogController.adminBasicModify()] --> "+id+" / "+blogTitle+" / "+file);
 		
 		blogService.basicModify(id, blogTitle, file);
-		
-		//모델 넣기
-		
+	
 		//현재페이지로 이동
-		return "blog/admin/blog-admin-basic";
+		return "redirect:/{id}/admin/basic";
 	}
 	
 }

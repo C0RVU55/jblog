@@ -39,7 +39,8 @@
 			      		</tr>
 			      		<tr>
 			      			<td><label>로고이미지</label></td>
-			      			<td class="text-left"><img src="${pageContext.request.contextPath}/assets/images/${blogVo.logoFile}"></td>   
+			      			<td class="text-left"><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"></td>   
+			      			<!-- 수정한 로고이미지도 계속 assets 안에 저장했는데 인식을 못 함. 선생님 사이트처럼 javastudy/upload폴더로 뺌. -->
 			      		</tr>      		
 			      		<tr>
 			      			<td>&nbsp;</td>
