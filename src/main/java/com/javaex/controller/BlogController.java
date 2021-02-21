@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
+import com.javaex.service.CateService;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.UserVo;
 
@@ -21,10 +22,16 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
+	@Autowired
+	private CateService cateService;
+	
 	/*
-	1.로그인 다이어그램
-	2.메인페이지 회색선 없애기
-	3.내블로그 관리 카테고리(ajax), 글작성
+	[전체미완]완료한 부분: jblog메인, 회원가입(항목체크X), 로그인/로그아웃, 내블로그관리-기본설정변경
+	
+	***미완성 목록***
+	3.내블로그 관리 카테고리(ajax) 추가, 글작성폼
+	4.메인페이지
+	5.회원가입 체크 항목
 	*/
 	
 	//블로그 메인
@@ -91,8 +98,9 @@ public class BlogController {
 							@RequestParam("description") String description) {
 		System.out.println("[BlogController.adminCate()] --> "+cateName+" / "+description);
 		
+		//cateService.cateAdd();
 		
-		return "";
+		return ""; //ResponseBody로 넘기기
 	}
 	
 	//admin/category/remove

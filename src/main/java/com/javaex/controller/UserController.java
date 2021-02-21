@@ -18,7 +18,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	private BlogService blogService;
 	
 	//로그인폼
 	@RequestMapping(value="/loginForm", method= {RequestMethod.GET, RequestMethod.POST})
