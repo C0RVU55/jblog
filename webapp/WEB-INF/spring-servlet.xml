@@ -57,7 +57,7 @@
 
 	</bean>
 
-	<!-- url과 resources 매핑 : mapping이 alias 같은 거임 / 로케이션 주소 맨 뒤에 / 안 쓰면 아예 인식 못 함. -->
+	<!-- url과 resources 매핑 : mapping이 alias 같은 거임 | 로케이션 주소 맨 뒤에 / 안 쓰면 아예 인식 못 함. -->
 	<mvc:resources mapping="/upload/**" location="file:C:/javaStudy/upload/" />
 
 </beans>

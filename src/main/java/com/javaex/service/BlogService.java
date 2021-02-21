@@ -29,7 +29,7 @@ public class BlogService {
 	public void basicModify(String id, String blogTitle, MultipartFile file) {
 		System.out.println("[BlogService.basicModify()] --> "+id+" / "+blogTitle+" / "+file);
 		
-		if(file == null) { //제목만 변경
+		if(file.isEmpty()) { //제목만 변경
 			BlogVo blogVo = new BlogVo(id, blogTitle);
 			blogDao.basicUpdate(blogVo);
 			
@@ -39,7 +39,7 @@ public class BlogService {
 			/////DB에 저장할 파일정보 수집/////
 			
 			//서버 파일패스(경로)
-			String saveDir = "C:\\javaStudy\\workspace_web\\jblog\\webapp\\assets\\images";
+			String saveDir = "C:\\javaStudy\\upload";
 			
 			//오리지널 파일명
 			String orgName = file.getOriginalFilename();

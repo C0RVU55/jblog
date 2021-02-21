@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>JBlog</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
 
 </head>
 
@@ -65,4 +65,14 @@
 	</div>
 	<!-- //wrap -->
 </body>
+
+<script type="text/javascript">
+
+	//input file 태그 초기화 --> 이거 안 하면 블로그 제목만 수정할 때 file에 null이 아니라
+	//org.springframework.web.multipart.commons.CommonsMultipartFile@42708404 가 들어가서 blogService의 substring()에서 글자수 초과로 오류남.
+	$("#textLogo").val("");
+
+
+</script>
+
 </html>
