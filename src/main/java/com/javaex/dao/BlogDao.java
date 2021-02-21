@@ -21,9 +21,22 @@ public class BlogDao {
 	
 	//블로그 정보 가져오기
 	public BlogVo selectBlog(String id) {
-		System.out.println("[BlogDao.insert()] --> "+id);
+		System.out.println("[BlogDao.selectBlog()] --> "+id);
 		
 		return sqlSession.selectOne("blog.selectBlog", id);
 	}
+	
+	//블로그 관리1 베이직 - 설정 변경 - 제목
+	public void basicUpdate(BlogVo blogVo) {
+		System.out.println("[BlogDao.basicUpdate()] --> "+blogVo);
+		
+		sqlSession.update("blog.basicUpdate", blogVo);
+	}
 
+	//블로그 관리1 베이직 - 설정 변경 - 제목, 로고
+	public void basicUpdateAll(BlogVo blogVo) {
+		System.out.println("[BlogDao.basicUpdateAll()] --> "+blogVo);
+		
+		sqlSession.update("blog.basicUpdateAll", blogVo);
+	}
 }

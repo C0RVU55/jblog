@@ -58,6 +58,6 @@
 	</bean>
 
 	<!-- url과 resources 매핑 -->
-	<mvc:resources mapping="/upload/**" location="file:C:/javaStudy/upload/" />
+	<mvc:resources mapping="/images/**" location="file:C:/javaStudy/강의자료/99.미니프로젝트_jblog/jblog_디자인/assets/images" />
 
 </beans>

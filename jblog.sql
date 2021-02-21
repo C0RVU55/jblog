@@ -58,6 +58,8 @@ create table blog(
     REFERENCES users(id)
 );
 
+--출력
+
 SELECT  id,
         blogTitle,
         logoFile
@@ -77,7 +79,18 @@ values('bbb', '블로그명', 'jblog/assets/images/spring-logo.jpg');
 
 --logoFile 수정
 update blog
-set logoFile='assets/images/spring-logo.jpg'
+set logoFile='spring-logo.jpg'
+where id = 'www';
+
+--basic 변경1 : 제목
+update blog
+set blogTitle='제목 수정1'
+where id = 'www';
+
+--basic 변경2 : 제목, 로고파일
+update blog
+set blogTitle='제목 수정2',
+    logoFile='로고 수정'
 where id = 'www';
 
 --------------------------------

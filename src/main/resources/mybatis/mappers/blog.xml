@@ -16,15 +16,35 @@
 
 	<!-- 블로그 정보 가져오기 -->
 	<select id="selectBlog" parameterType="String" resultType="BlogVo">
-	<![CDATA[
-		SELECT  u.id,
-		        u.userName,
-		        b.blogTitle,
-		        b.logoFile
-		FROM blog b, users u
-		where b.id = u.id
-		and u.id=#{id}
-	]]>
+		<![CDATA[
+			SELECT  u.id,
+			        u.userName,
+			        b.blogTitle,
+			        b.logoFile
+			FROM blog b, users u
+			where b.id = u.id
+			and u.id=#{id}
+		]]>
 	</select>
-
+	
+	<!-- 블로그 관리1 베이직 - 설정 변경 - 제목 -->
+	<update id="basicUpdate" parameterType="BlogVo">
+		<![CDATA[
+			update blog
+			set blogTitle = #{blogTitle}
+			where id = #{id}
+		]]>
+	</update>
+	
+	<!-- 블로그 관리1 베이직 - 설정 변경 - 제목, 로고 -->
+	<update id="basicUpdateAll" parameterType="BlogVo">
+		<![CDATA[
+			update blog
+			set blogTitle = #{blogTitle},
+			    logoFile = #{logoFile}
+			where id = #{id}
+		]]>
+	</update>
+	
+	
 </mapper>
