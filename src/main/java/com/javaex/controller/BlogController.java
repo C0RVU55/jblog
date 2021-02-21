@@ -24,7 +24,7 @@ public class BlogController {
 	/*
 	1.로그인 다이어그램
 	2.메인페이지 회색선 없애기
-	3.내블로그 관리	베이직, 카테고리(ajax), 글작성
+	3.내블로그 관리 카테고리(ajax), 글작성
 	*/
 	
 	//블로그 메인
@@ -65,8 +65,36 @@ public class BlogController {
 		
 		blogService.basicModify(id, blogTitle, file);
 	
-		//현재페이지로 이동
 		return "redirect:/{id}/admin/basic";
 	}
+	
+	//블로그 관리2 카테고리(ajax)
+	@RequestMapping(value= "{id}/admin/category", method= {RequestMethod.GET, RequestMethod.POST})
+	public String adminCate(@PathVariable("id") String id, HttpSession session, Model model) {
+		System.out.println("[BlogController.adminCate()]");
+		
+		//세션 넣어서 본인 아니면 안 뜨게 하기(userNo 안 쓸 건데 넣는 게 맞는지)
+		int userNo = ((UserVo)session.getAttribute("authUser")).getUserNo();
+		
+		//블로그 정보
+		BlogVo blogVo = blogService.blogInfo(id);
+		System.out.println("[BlogController.adminBasic()] --> "+blogVo);
+		model.addAttribute("blogVo", blogVo);
+		
+		return "blog/admin/blog-admin-cate";
+	}
+	
+	//${blogVo.id}/admin/category/add 서비스에서 카테고리dao에 인서트 
+	@RequestMapping(value= "{id}/admin/category/add", method= {RequestMethod.GET, RequestMethod.POST})
+	public String cateAdd(@PathVariable("id") String id, 
+							@RequestParam("cateName") String cateName,
+							@RequestParam("description") String description) {
+		System.out.println("[BlogController.adminCate()] --> "+cateName+" / "+description);
+		
+		
+		return "";
+	}
+	
+	//admin/category/remove
 	
 }

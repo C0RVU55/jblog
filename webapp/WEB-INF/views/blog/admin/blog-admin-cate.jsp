@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +8,7 @@
 <meta charset="UTF-8">
 <title>JBlog</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
 
 </head>
 
@@ -15,13 +16,13 @@
 	<div id="wrap">
 		
 		<!-- 개인블로그 해더 -->
-
+		<c:import url="/WEB-INF/views/includes/blog-header.jsp"></c:import>
 
 		<div id="content">
 			<ul id="admin-menu" class="clearfix">
-				<li class="tabbtn selected"><a href="">기본설정</a></li>
-				<li class="tabbtn"><a href="">카테고리</a></li>
-				<li class="tabbtn"><a href="">글작성</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/${blogVo.id}/admin/basic">기본설정</a></li>
+				<li class="tabbtn selected"><a href="${pageContext.request.contextPath}/${blogVo.id}/admin/category">카테고리</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/${blogVo.id}/admin/writeForm">글작성</a></li>
 			</ul>
 			<!-- //admin-menu -->
 			
@@ -68,7 +69,7 @@
 					</tbody>
 				</table>
       	
-		      	<table id="admin-cate-add" >
+		      	<table id="admin-cate-add" > <!-- 카테고리 추가 -->
 		      		<colgroup>
 						<col style="width: 100px;">
 						<col style="">
@@ -94,14 +95,70 @@
 		
 		
 		<!-- 개인블로그 푸터 -->
-		
+		<c:import url="/WEB-INF/views/includes/blog-footer.jsp"></c:import>
 	
 	
 	</div>
 	<!-- //wrap -->
 </body>
 
+<script type="text/javascript">
 
+	//////////////카테고리 추가//////////////
+	$("#btnAddCate").on("click", function(){
+		console.log("카테고리추가 버튼");
+		
+		var cateName = $("[name='name']").val();
+		var description = $("[name='desc']").val();
+		console.log(cateName);
+		console.log(description);
+
+		$.ajax({
+			url : "${pageContext.request.contextPath }/${blogVo.id}/admin/category/add",		
+			type : "post",
+			//contentType : "application/json", 
+			data : {cateName: cateName, description: description},
+			
+			dataType : "json",
+			success : function(count){ 
+				
+				console.log(count);
+				
+			},
+			error : function(XHR, status, error) { //오류메세지 보려고 쓰는 거
+				console.error(status + " : " + error);
+			}
+		});
+	});
+	
+	//////////////카테고리 삭제//////////////
+	$("#btnSubmit").on("click", function(){
+		console.log("방명록 등록 버튼 클릭");
+		
+		var cateName = $("name").val();
+		var description = $("desc").val();
+		console.log(name);
+		console.log(password);
+
+		$.ajax({
+			url : "${pageContext.request.contextPath }/${blogVo.id}/admin/category/remove",		
+			type : "post",
+			//contentType : "application/json", 
+			data : {cateName: cateName, description: description},
+			
+			dataType : "json",
+			success : function(count){ 
+				
+				console.log(count);
+				
+			},
+			error : function(XHR, status, error) { //오류메세지 보려고 쓰는 거
+				console.error(status + " : " + error);
+			}
+		});
+	});
+
+</script>
 
 
 </html>
