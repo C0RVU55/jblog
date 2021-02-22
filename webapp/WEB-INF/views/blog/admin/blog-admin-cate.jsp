@@ -46,26 +46,19 @@
 			      		</tr>
 		      		</thead>
 		      		<tbody id="cateList">
-		      			<!-- 리스트 영역 -->
-		      			<tr>
-							<td>1</td>
-							<td>자바프로그래밍</td>
-							<td>7</td>
-							<td>자바기초와 객체지향</td>
-						    <td class='text-center'>
-						    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
-						    </td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>오라클</td>
-							<td>5</td>
-							<td>오라클 설치와 sql문</td>
-						    <td class='text-center'>
-						    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
-						    </td>
-						</tr>
-						<!-- 리스트 영역 -->
+		      			<!-- 리스트 영역
+		      			<c:forEach items="${cateList }" var="vo">
+			      			<tr>
+								<td>${vo.cateNo }</td>
+								<td>${vo.cateName }</td>
+								<td>${vo.postSum }</td>
+								<td>${vo.description }</td>
+							    <td class='text-center'>
+							    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
+							    </td>
+							</tr>
+						</c:forEach>
+						리스트 영역 -->
 					</tbody>
 				</table>
       	
@@ -104,7 +97,15 @@
 
 <script type="text/javascript">
 
-	//////////////카테고리 추가//////////////
+	//////////////리스트 출력////////////// 
+	$("document").ready(function(){
+		console.log("ready");
+		
+		//전체 리스트 출력 함수(복잡해지면 함수는 아래 모아두고 위에서는 이렇게만 실행 가능)
+		fetchList();
+	});
+	
+	//////////////카테고리 추가 --> form으로 하고 삭제만 ajax? //////////////
 	$("#btnAddCate").on("click", function(){
 		console.log("카테고리추가 버튼");
 		
@@ -157,6 +158,7 @@
 			}
 		});
 	});
+
 
 </script>
 

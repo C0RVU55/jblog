@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
 import com.javaex.service.CateService;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.CateVo;
 import com.javaex.vo.UserVo;
 
 @Controller
@@ -66,8 +70,8 @@ public class BlogController {
 	//블로그 관리1 베이직 - 설정 변경
 	@RequestMapping(value= "{id}/admin/basic/modify", method= {RequestMethod.GET, RequestMethod.POST})
 	public String adminBasicModify(@PathVariable("id") String id,
-									@RequestParam("blogTitle") String blogTitle,
-									@RequestParam(value="file", required=false) MultipartFile file) {
+								@RequestParam("blogTitle") String blogTitle,
+								@RequestParam(value="file", required=false) MultipartFile file) {
 		System.out.println("[BlogController.adminBasicModify()] --> "+id+" / "+blogTitle+" / "+file);
 		
 		blogService.basicModify(id, blogTitle, file);
@@ -75,7 +79,7 @@ public class BlogController {
 		return "redirect:/{id}/admin/basic";
 	}
 	
-	//블로그 관리2 카테고리(ajax)
+	//블로그 관리2 카테고리(ajax) --> 리스트 추가하기
 	@RequestMapping(value= "{id}/admin/category", method= {RequestMethod.GET, RequestMethod.POST})
 	public String adminCate(@PathVariable("id") String id, HttpSession session, Model model) {
 		System.out.println("[BlogController.adminCate()]");
@@ -88,21 +92,27 @@ public class BlogController {
 		System.out.println("[BlogController.adminBasic()] --> "+blogVo);
 		model.addAttribute("blogVo", blogVo);
 		
+		//리스트 가져오기
+		List<CateVo> cateList = cateService.cateList();
+		System.out.println(cateList);
+		model.addAttribute("cateList", cateList);
+		
 		return "blog/admin/blog-admin-cate";
 	}
-	
-	//${blogVo.id}/admin/category/add 서비스에서 카테고리dao에 인서트 
+
+	//블로그 관리2 카테고리 추가
+	@ResponseBody
 	@RequestMapping(value= "{id}/admin/category/add", method= {RequestMethod.GET, RequestMethod.POST})
-	public String cateAdd(@PathVariable("id") String id, 
-							@RequestParam("cateName") String cateName,
-							@RequestParam("description") String description) {
+	public int cateAdd(@PathVariable("id") String id, 
+						@RequestParam("cateName") String cateName,
+						@RequestParam("description") String description) {
 		System.out.println("[BlogController.adminCate()] --> "+cateName+" / "+description);
 		
-		//cateService.cateAdd();
-		
-		return ""; //ResponseBody로 넘기기
+		//ResponseBody로 넘기기
+		return cateService.cateAdd(id, cateName, description);
 	}
 	
+	//블로그 관리2 카테고리 삭제
 	//admin/category/remove
 	
 }
