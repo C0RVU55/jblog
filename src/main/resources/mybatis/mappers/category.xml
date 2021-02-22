@@ -7,16 +7,16 @@
 	<!-- 카테고리 리스트 -->
 	<select id="selectCateList" resultType="CateVo">
 		<![CDATA[
-			SELECT  c.cateNo cateNo,
+			SELECT  c.cateNo,
 			        id,
 			        cateName,
 			        description,
-			        p.sum postSum
-			FROM category c, (select  cateNo, 
+			        nvl(p.sum, 0) postSum
+			FROM category c left outer join (select  cateNo, 
 			                          count(postNo) sum
 			                  from post
 			                  group by cateNo) p
-			where c.cateNo = p.cateNo
+			on c.cateNo = p.cateNo
 			order by cateNo desc
 		]]>
 	</select>

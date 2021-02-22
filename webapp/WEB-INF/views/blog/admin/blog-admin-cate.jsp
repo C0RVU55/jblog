@@ -102,10 +102,10 @@
 		console.log("ready");
 		
 		//전체 리스트 출력 함수(복잡해지면 함수는 아래 모아두고 위에서는 이렇게만 실행 가능)
-		fetchList();
+		cateList();
 	});
 	
-	//////////////카테고리 추가 --> form으로 하고 삭제만 ajax? //////////////
+	//////////////카테고리 추가//////////////
 	$("#btnAddCate").on("click", function(){
 		console.log("카테고리추가 버튼");
 		
@@ -148,9 +148,9 @@
 			data : {cateName: cateName, description: description},
 			
 			dataType : "json",
-			success : function(count){ 
+			success : function(cateList){ 
 				
-				console.log(count);
+				console.log(cateList);
 				
 			},
 			error : function(XHR, status, error) { //오류메세지 보려고 쓰는 거
@@ -159,6 +159,55 @@
 		});
 	});
 
+	//카테고리 출력
+	function render(cateVo, updown){
+		var str = '';
+		str += '	<tr>';
+		str += '		<td>'+cateVo.cateNo+'</td>';
+		str += '		<td>'+cateVo.cateName+'</td>';
+		str += '		<td>'+cateVo.postSum+'</td>';
+		str += '		<td>'+cateVo.description+'</td>';
+		str += '		<td class='text-center'>';
+		str += '			<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">';
+		str += '		</td>';
+		str += '	</tr>';
+		
+		//정렬 옵션 추가
+		if(updown == "down"){
+			$("#cateList").append(str); //여기 아이디가 guestBookListArea였어서 아예 브라우저에 출력이 안 됐었음.
+		} else if(updown == "up") {
+			$("#cateList").prepend(str); //html이면 방명록 글 하나가 바뀌기만 하니까 앞에 계속 추가하는 prepend로 함.
+		} else {
+			console.log("정렬 미지정");
+		}
+		
+	}
+	
+	//전체 리스트 출력 함수
+	function cateList(){
+		
+		$.ajax({
+	
+			url : "${pageContext.request.contextPath }/admin/cateList",		
+			type : "post",
+			//contentType : "application/json",
+			data : {id: id}, //위에 id 추가로 받기
+	
+			dataType : "json",
+			success : function(cateList){ 
+				/*성공시 처리해야될 코드 작성*/
+				console.log(cateList);
+				
+				for(var i=0; i<cateList.length; i++){
+					render(cateList[i], "down");
+				};
+				
+			},
+			error : function(XHR, status, error) { 
+				console.error(status + " : " + error);
+			}
+		});
+	}
 
 </script>
 

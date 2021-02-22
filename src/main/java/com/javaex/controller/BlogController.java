@@ -79,7 +79,7 @@ public class BlogController {
 		return "redirect:/{id}/admin/basic";
 	}
 	
-	//블로그 관리2 카테고리(ajax) --> 리스트 추가하기
+	//블로그 관리2 카테고리
 	@RequestMapping(value= "{id}/admin/category", method= {RequestMethod.GET, RequestMethod.POST})
 	public String adminCate(@PathVariable("id") String id, HttpSession session, Model model) {
 		System.out.println("[BlogController.adminCate()]");
@@ -99,17 +99,29 @@ public class BlogController {
 		
 		return "blog/admin/blog-admin-cate";
 	}
+	
+	//블로그 관리2 카테고리(ajax) 리스트
+	@ResponseBody
+	@RequestMapping(value= "/admin/cateList", method= {RequestMethod.GET, RequestMethod.POST})
+	public void adminCate(@RequestParam("id") String id) { 
+		System.out.println("[BlogController.adminCateList()]");
+		
+		//return cateService.cateList(id); id 받는 걸로 수정하고 리턴유형 List로.
+	}
 
 	//블로그 관리2 카테고리 추가
-	@ResponseBody
 	@RequestMapping(value= "{id}/admin/category/add", method= {RequestMethod.GET, RequestMethod.POST})
-	public int cateAdd(@PathVariable("id") String id, 
+	public String cateAdd(@PathVariable("id") String id, 
 						@RequestParam("cateName") String cateName,
 						@RequestParam("description") String description) {
 		System.out.println("[BlogController.adminCate()] --> "+cateName+" / "+description);
 		
-		//ResponseBody로 넘기기
-		return cateService.cateAdd(id, cateName, description);
+		cateService.cateAdd(id, cateName, description);
+		
+		//ResponseBody로 넘기기? -->아예 ajax로 해야 바로 추가됨.
+		//return cateService.cateAdd(id, cateName, description);
+		
+		return "redirect:{id}/admin/category";
 	}
 	
 	//블로그 관리2 카테고리 삭제
