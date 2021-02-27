@@ -5,7 +5,7 @@
 <mapper namespace="category">
 
 	<!-- 카테고리 리스트 -->
-	<select id="selectCateList" resultType="CateVo">
+	<select id="selectCateList" parameterType="string" resultType="CateVo">
 		<![CDATA[
 			SELECT  c.cateNo,
 			        id,
@@ -17,15 +17,20 @@
 			                  from post
 			                  group by cateNo) p
 			on c.cateNo = p.cateNo
-			order by cateNo desc
+			where id = #{id}
+			order by cateNo asc
 		]]>
 	</select>
 	
-	<!-- 카테고리 입력 -->
+	<!-- 카테고리 입력 (selectKey) -->
 	<insert id="cateInsert" parameterType="CateVo">
+		<selectKey keyProperty="cateNo" resultType="int" order="BEFORE">
+			select seq_category_no.nextval
+			from dual
+		</selectKey>
 		<![CDATA[
 			insert into category
-			values(seq_category_no.nextval, 
+			values(#{cateNo}, 
 					#{id}, 
 					#{cateName}, 
 					#{description}, 
@@ -33,7 +38,22 @@
 		]]>
 	</insert>
 
-
+	<!-- 입력한 카테고리 정보 -->
+	<select id="selectCate" parameterType="int" resultType="CateVo">
+		<![CDATA[
+			SELECT  c.cateNo,
+			        id,
+			        cateName,
+			        description,
+			        nvl(p.sum, 0) postSum
+			FROM category c left outer join (select  cateNo, 
+			                          count(postNo) sum
+			                  from post
+			                  group by cateNo) p
+			on c.cateNo = p.cateNo
+			where c.cateNo = #{cateNo}
+		]]>
+	</select>
 
 
 </mapper>

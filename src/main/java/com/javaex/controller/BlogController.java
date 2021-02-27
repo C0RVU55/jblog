@@ -92,36 +92,30 @@ public class BlogController {
 		System.out.println("[BlogController.adminBasic()] --> "+blogVo);
 		model.addAttribute("blogVo", blogVo);
 		
-		//리스트 가져오기
-		List<CateVo> cateList = cateService.cateList();
-		System.out.println(cateList);
-		model.addAttribute("cateList", cateList);
-		
 		return "blog/admin/blog-admin-cate";
 	}
 	
 	//블로그 관리2 카테고리(ajax) 리스트
 	@ResponseBody
 	@RequestMapping(value= "/admin/cateList", method= {RequestMethod.GET, RequestMethod.POST})
-	public void adminCate(@RequestParam("id") String id) { 
+	public List<CateVo> adminCate(@RequestParam("id") String id) { 
 		System.out.println("[BlogController.adminCateList()]");
 		
-		//return cateService.cateList(id); id 받는 걸로 수정하고 리턴유형 List로.
+		return cateService.cateList(id);
 	}
 
 	//블로그 관리2 카테고리 추가
-	@RequestMapping(value= "{id}/admin/category/add", method= {RequestMethod.GET, RequestMethod.POST})
-	public String cateAdd(@PathVariable("id") String id, 
+	@ResponseBody
+	@RequestMapping(value= "/admin/cateAdd", method= {RequestMethod.GET, RequestMethod.POST})
+	public CateVo cateAdd(@RequestParam("id") String id, 
 						@RequestParam("cateName") String cateName,
 						@RequestParam("description") String description) {
-		System.out.println("[BlogController.adminCate()] --> "+cateName+" / "+description);
+		System.out.println("[BlogController.adminCate()] --> "+id+" / "+cateName+" / "+description);
 		
-		cateService.cateAdd(id, cateName, description);
+		CateVo cateVo = cateService.cateAdd(id, cateName, description);
+		System.out.println(cateVo.toString());
 		
-		//ResponseBody로 넘기기? -->아예 ajax로 해야 바로 추가됨.
-		//return cateService.cateAdd(id, cateName, description);
-		
-		return "redirect:{id}/admin/category";
+		return cateVo;
 	}
 	
 	//블로그 관리2 카테고리 삭제

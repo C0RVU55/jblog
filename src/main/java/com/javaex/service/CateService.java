@@ -15,18 +15,23 @@ public class CateService {
 	private CateDao cateDao;
 	
 	//리스트
-	public List<CateVo> cateList() {
+	public List<CateVo> cateList(String id) {
 		System.out.println("[CateService.cateList()]");
 		
-		return cateDao.selectCateList();
+		return cateDao.selectCateList(id);
 	}
 	
 	//카테고리 추가
-	public int cateAdd(String id, String cateName, String description) {
+	public CateVo cateAdd(String id, String cateName, String description) {
 		System.out.println("[CateService.cateAdd()] --> "+id+" / "+cateName+" / "+description);
 		
 		CateVo cateVo = new CateVo(id, cateName, description);
+		cateDao.cateInsert(cateVo);
 		
-		return cateDao.cateInsert(cateVo);
+		//추가한 카테고리 가져오기
+		int cateNo = cateVo.getCateNo();
+		System.out.println("cateNo --> "+cateNo);
+		
+		return cateDao.selectCate(cateNo);
 	}
 }

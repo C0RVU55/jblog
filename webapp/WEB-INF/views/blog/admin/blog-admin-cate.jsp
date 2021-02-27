@@ -101,7 +101,6 @@
 	$("document").ready(function(){
 		console.log("ready");
 		
-		//전체 리스트 출력 함수(복잡해지면 함수는 아래 모아두고 위에서는 이렇게만 실행 가능)
 		cateList();
 	});
 	
@@ -109,21 +108,30 @@
 	$("#btnAddCate").on("click", function(){
 		console.log("카테고리추가 버튼");
 		
+		var id = "${authUser.id}";
 		var cateName = $("[name='name']").val();
 		var description = $("[name='desc']").val();
+		console.log(id);
 		console.log(cateName);
 		console.log(description);
 
 		$.ajax({
-			url : "${pageContext.request.contextPath }/${blogVo.id}/admin/category/add",		
+			url : "${pageContext.request.contextPath }/admin/cateAdd",		
 			type : "post",
 			//contentType : "application/json", 
-			data : {cateName: cateName, description: description},
+			data : {cateName: cateName, description: description, id: id},
 			
 			dataType : "json",
-			success : function(count){ 
+			success : function(cateVo){ 
 				
-				console.log(count);
+				console.log("카테고리 추가 성공");
+				console.log(cateVo);
+				
+				//리스트에 추가
+				render(cateVo);
+				
+				$("[name='name']").val("");
+				$("[name='desc']").val("");
 				
 			},
 			error : function(XHR, status, error) { //오류메세지 보려고 쓰는 거
@@ -142,7 +150,7 @@
 		console.log(password);
 
 		$.ajax({
-			url : "${pageContext.request.contextPath }/${blogVo.id}/admin/category/remove",		
+			url : "${pageContext.request.contextPath }/admin/cateRemove",		
 			type : "post",
 			//contentType : "application/json", 
 			data : {cateName: cateName, description: description},
@@ -159,39 +167,18 @@
 		});
 	});
 
-	//카테고리 출력
-	function render(cateVo, updown){
-		var str = '';
-		str += '	<tr>';
-		str += '		<td>'+cateVo.cateNo+'</td>';
-		str += '		<td>'+cateVo.cateName+'</td>';
-		str += '		<td>'+cateVo.postSum+'</td>';
-		str += '		<td>'+cateVo.description+'</td>';
-		str += '		<td class='text-center'>';
-		str += '			<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">';
-		str += '		</td>';
-		str += '	</tr>';
-		
-		//정렬 옵션 추가
-		if(updown == "down"){
-			$("#cateList").append(str); //여기 아이디가 guestBookListArea였어서 아예 브라우저에 출력이 안 됐었음.
-		} else if(updown == "up") {
-			$("#cateList").prepend(str); //html이면 방명록 글 하나가 바뀌기만 하니까 앞에 계속 추가하는 prepend로 함.
-		} else {
-			console.log("정렬 미지정");
-		}
-		
-	}
-	
 	//전체 리스트 출력 함수
 	function cateList(){
+		
+		var id = "${authUser.id}";
+		console.log(id);
 		
 		$.ajax({
 	
 			url : "${pageContext.request.contextPath }/admin/cateList",		
 			type : "post",
 			//contentType : "application/json",
-			data : {id: id}, //위에 id 추가로 받기
+			data : {id: id},
 	
 			dataType : "json",
 			success : function(cateList){ 
@@ -199,7 +186,7 @@
 				console.log(cateList);
 				
 				for(var i=0; i<cateList.length; i++){
-					render(cateList[i], "down");
+					render(cateList[i]);
 				};
 				
 			},
@@ -208,6 +195,26 @@
 			}
 		});
 	}
+	
+	//카테고리 출력
+	function render(cateVo){
+		var str = '';
+		str += '	<tr>';
+		str += '		<td>'+cateVo.cateNo+'</td>';
+		str += '		<td>'+cateVo.cateName+'</td>';
+		str += '		<td>'+cateVo.postSum+'</td>';
+		str += '		<td>'+cateVo.description+'</td>';
+		str += '		<td class="text-center">';
+		str += '			<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">';
+		str += '		</td>';
+		str += '	</tr>';
+		
+		//정렬 옵션
+		$("#cateList").prepend(str); 
+		
+	}
+	
+
 
 </script>
 

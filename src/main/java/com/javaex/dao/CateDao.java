@@ -15,17 +15,24 @@ public class CateDao {
 	private SqlSession sqlSession;
 	
 	//카테고리 리스트
-	public List<CateVo> selectCateList() {
+	public List<CateVo> selectCateList(String id) {
 		System.out.println("[CateDao.selectCateList()]");
 		
-		return sqlSession.selectList("category.selectCateList");
+		return sqlSession.selectList("category.selectCateList", id);
 	}
 	
 	//카테고리 입력
-	public int cateInsert(CateVo cateVo) {
+	public void cateInsert(CateVo cateVo) {
 		System.out.println("[CateDao.cateInsert()] --> "+cateVo);
 		
-		return sqlSession.insert("category.cateInsert", cateVo);
+		sqlSession.insert("category.cateInsert", cateVo);
+	}
+	
+	//카테고리 가져오기
+	public CateVo selectCate(int cateNo) {
+		System.out.println("[CateDao.selectCate()] --> "+cateNo);
+		
+		return sqlSession.selectOne("category.selectCate", cateNo);
 	}
 
 }
